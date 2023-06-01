@@ -66,7 +66,7 @@ const movieSchema = new Schema(
       ref: 'user',
       required: true,
     },
-    movieId : {
+    movieId: {
       type: Number,
       required: true,
     },
@@ -93,7 +93,7 @@ const movieSchema = new Schema(
       },
     },
   },
-  { toJSON: { useProjection: true }, toObject: { useProjection: true }, versionKey: false },
+  { versionKey: false },
 );
 
 module.exports = mongoose.model('movie', movieSchema);

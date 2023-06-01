@@ -11,8 +11,8 @@ const {
 } = http2.constants;
 
 const regexLink = /https?:\/\/(w{1,3}\.)?[\w+\-._~:/?#[\]@!$&'()*+,;=]+/;
-const regexRu = /[\W\d]/g;
-const regexEn = /[\w\s\d\-._~:/?#[\]@!$&'()*+,;=]+/g;
+const regexRu = /[\W\d]/;
+const regexEn = /[\w\s\d\-._~:/?#[\]@!$&'()*+,;=]+/;
 
 module.exports = {
   HTTP_STATUS_NOT_FOUND,
