@@ -4,12 +4,12 @@ const {
 } = require('../controllers/movies');
 
 const {
-  movieIdValidator, createMovieValidator,
+  createMovieValidator,
 } = require('../validators/movieValidator');
 
 movieRouter.get('/', getMovies);
 
-movieRouter.delete('/:_id', movieIdValidator, deleteMovie);
+movieRouter.delete('/:_id', deleteMovie);
 
 movieRouter.post('/', createMovieValidator, createMovie);
 

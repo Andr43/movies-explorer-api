@@ -16,10 +16,10 @@ module.exports.getMovies = (req, res, next) => {
 };
 
 module.exports.createMovie = (req, res, next) => {
-  const { country, director, duration, year, description, image, trailer, nameRU, nameEN, thumbnail, movieId } = req.body;
+  const { country, director, duration, year, description, image, trailerLink, nameRU, nameEN, thumbnail, movieId } = req.body;
   const { _id: userId } = req.user;
 
-  Movie.create({ country, director, duration, year, description, image, trailer, nameRU, nameEN, thumbnail, movieId, owner: userId })
+  Movie.create({ country, director, duration, year, description, image, trailerLink, nameRU, nameEN, thumbnail, movieId, owner: userId })
     .then((movie) => {
       res.status(HTTP_STATUS_CREATED).send(movie);
     })
@@ -31,13 +31,13 @@ module.exports.createMovie = (req, res, next) => {
 };
 
 module.exports.deleteMovie = (req, res, next) => {
-  Movie.findById(req.params.movieId)
+  Movie.findById(req.params._id)
     .orFail()
     .then((movie) => {
       if (req.user._id !== movie.owner.toHexString()) {
         throw new StatusForbiddenError('Вы не имеете достаточных прав, чтобы удалить данный фильм.');
       } else {
-        return Card.findByIdAndRemove(req.params.movieId)
+        return Movie.findByIdAndRemove(req.params._id)
           .then(() => {
             res.send({ message: 'Ваш фильм удален.' });
           });
