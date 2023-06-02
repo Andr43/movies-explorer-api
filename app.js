@@ -6,6 +6,8 @@ const app = express();
 const router = require('./routes/index');
 const cookieParser = require('cookie-parser');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const { centralErrorHandler } = require('./errors/handlers/central-error-handler');
+const { errors } = require('celebrate');
 
 mongoose.connect('mongodb://127.0.0.1/projectmoviesdb', {
   useNewUrlParser: true,
@@ -15,6 +17,8 @@ app.use(cookieParser());
 app.use(requestLogger);
 app.use(router);
 app.use(errorLogger);
+app.use(errors());
+app.use(centralErrorHandler);
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
