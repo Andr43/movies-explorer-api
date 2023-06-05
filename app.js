@@ -6,6 +6,7 @@ const app = express();
 const router = require('./routes/index');
 const cookieParser = require('cookie-parser');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const corsHandler = require('./middlewares/corsHandler');
 const { centralErrorHandler } = require('./errors/handlers/central-error-handler');
 const { errors } = require('celebrate');
 
@@ -14,6 +15,7 @@ mongoose.connect('mongodb://127.0.0.1/projectmoviesdb', {
 });
 app.use(express.json());
 app.use(cookieParser());
+app.use(corsHandler);
 app.use(requestLogger);
 app.use(router);
 app.use(errorLogger);
