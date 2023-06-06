@@ -12,7 +12,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const corsHandler = require('./middlewares/corsHandler');
 const { centralErrorHandler } = require('./errors/handlers/central-error-handler');
 
-mongoose.connect('mongodb://127.0.0.1/projectmoviesdb', {
+mongoose.connect(NODE_ENV === 'production' ? DB : DB_DEV, {
   useNewUrlParser: true,
 });
 app.use(express.json());
