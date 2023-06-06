@@ -1,16 +1,18 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3000, DB, NODE_ENV } = process.env;
 const app = express();
-const router = require('./routes/index');
 const cookieParser = require('cookie-parser');
+const { errors } = require('celebrate');
+const { DB_DEV } = require('./utils/config');
+const router = require('./routes/index');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const corsHandler = require('./middlewares/corsHandler');
 const { centralErrorHandler } = require('./errors/handlers/central-error-handler');
-const { errors } = require('celebrate');
 
-mongoose.connect('mongodb://127.0.0.1/projectmoviesdb', {
+mongoose.connect(NODE_ENV === 'production' ? DB : DB_DEV, {
   useNewUrlParser: true,
 });
 app.use(express.json());

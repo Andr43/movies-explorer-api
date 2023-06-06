@@ -40,10 +40,10 @@ module.exports.registration = (req, res, next) => {
 };
 
 module.exports.updateUser = (req, res, next) => {
-  const { name } = req.body;
+  const { name, email } = req.body;
   User.findByIdAndUpdate(
     req.user._id,
-    { name },
+    { name, email },
     {
       new: true,
       runValidators: true,
@@ -72,7 +72,7 @@ module.exports.login = (req, res, next) => {
           maxAge: 3600000 * 24 * 7,
           httpOnly: true,
         })
-        .send(req.cookies.jwt)
+        .send(res.cookies.jwt)
         .end();
     })
     .catch((err) => {

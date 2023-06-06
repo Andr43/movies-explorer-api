@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+
 const { Schema } = mongoose;
 const bcrypt = require('bcryptjs');
 const { isEmail } = require('validator');
@@ -32,7 +33,7 @@ const userSchema = new Schema(
   { toJSON: { useProjection: true }, toObject: { useProjection: true }, versionKey: false },
 );
 
-userSchema.statics.findUserByCredentials = function (email, password) {
+userSchema.statics.findUserByCredentials = function findUserByCredentials(email, password) {
   return this.findOne({ email }).select('+password')
     .then((user) => {
       if (!user) {
