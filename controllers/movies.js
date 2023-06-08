@@ -61,7 +61,7 @@ module.exports.deleteMovie = (req, res, next) => {
       if (req.user._id !== movie.owner.toHexString()) {
         throw new StatusForbiddenError('Вы не имеете достаточных прав, чтобы удалить данный фильм.');
       } else {
-        Movie.deleteOne(req.params._id)
+        Movie.deleteOne(movie)
           .then(() => {
             res.send({ message: 'Ваш фильм удален.' });
           });
