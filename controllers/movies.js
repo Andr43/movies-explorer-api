@@ -69,9 +69,9 @@ module.exports.deleteMovie = (req, res, next) => {
     })
     .catch((err) => {
       if (err instanceof DocumentNotFoundError) {
-        next(new NotFoundError('Такой карточки не существует.'));
+        next(new NotFoundError('Фильма с таким id не существует.'));
       } else if (err instanceof CastError) {
-        next(new BadRequestError('Запрашиваемая карточка не найдена.'));
+        next(new BadRequestError('Запрашиваемый фильм не найден.'));
       } else next(err);
     });
 };
