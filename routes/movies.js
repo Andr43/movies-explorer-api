@@ -5,11 +5,12 @@ const {
 
 const {
   createMovieValidator,
+  movieIdValidator,
 } = require('../validators/movieValidator');
 
 movieRouter.get('/', getMovies);
 
-movieRouter.delete('/:_id', deleteMovie);
+movieRouter.delete('/:_id', movieIdValidator, deleteMovie);
 
 movieRouter.post('/', createMovieValidator, createMovie);
 

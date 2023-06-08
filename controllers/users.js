@@ -54,7 +54,9 @@ module.exports.updateUser = (req, res, next) => {
       res.send(user);
     })
     .catch((err) => {
-      if (err instanceof DocumentNotFoundError) {
+      if (err.code === 11000) {
+        next(new StatusConflictError('Пользователь с таким email уже зарегистрирован.'));
+      } else if (err instanceof DocumentNotFoundError) {
         next(new NotFoundError('Указанный пользователь не найден.'));
       } else if (err instanceof ValidationError) {
         next(new BadRequestError('Переданные данные некорректны.'));
