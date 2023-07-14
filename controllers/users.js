@@ -2,6 +2,7 @@ const { DocumentNotFoundError, ValidationError } = require('mongoose').Error;
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const User = require('../models/user');
+const UnauthorizedError = require('../errors/unauthorized-error');
 const NotFoundError = require('../errors/not-found-error');
 const BadRequestError = require('../errors/bad-request-error');
 const StatusConflictError = require('../errors/status-conflict-error');
@@ -81,7 +82,7 @@ module.exports.login = (req, res, next) => {
     })
     .catch((err) => {
       if (err instanceof ValidationError) {
-        next(new BadRequestError('Вы указали неверный email или пароль.'));
+        next(new UnauthorizedError('Вы указали неверный email или пароль.'));
       } else next(err);
     });
 };
