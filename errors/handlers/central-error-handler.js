@@ -7,6 +7,7 @@ const centralErrorHandler = (err, req, res, next) => {
   res
     .status(statusCode)
     .json({
+      status: statusCode,
       message: statusCode === HTTP_STATUS_INTERNAL_SERVER_ERROR
         ? 'На сервере произошла ошибка.'
         : message,
